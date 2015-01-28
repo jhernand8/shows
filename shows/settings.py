@@ -1,5 +1,5 @@
 """
-Django settings for weatherproj project.
+Django settings for shows project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'weatherproj',
+    'shows',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,9 +51,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'weatherproj.urls'
+ROOT_URLCONF = 'shows.urls'
 
-WSGI_APPLICATION = 'weatherproj.wsgi.application'
+WSGI_APPLICATION = 'shows.wsgi.application'
 
 
 # Database
