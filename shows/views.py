@@ -12,7 +12,7 @@ from django.utils.safestring import mark_safe
 from sets import Set
 
 def home(request):
-  return http.HttpResponse(template.render(context))
+  return http.HttpResponse("Shows home page")
 
 
 
