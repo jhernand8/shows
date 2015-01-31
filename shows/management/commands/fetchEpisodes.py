@@ -17,15 +17,19 @@ class Command(BaseCommand):
     for show in shows:
       # handle current show
       url = show.wiki_url
-      self.update_episodes_for_show(url)
-    self.update_episodes_for_show("http://en.wikipedia.org/wiki/NCIS_%28season_12%29");
+      self.update_episodes_for_show(url, show.show_name)
+    self.update_episodes_for_show("http://en.wikipedia.org/wiki/NCIS_%28season_12%29", "ncis");
     print "\n\n\n agents of shield:\n\n\n";
-    self.update_episodes_for_show("http://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._%28season_2%29")
+    self.update_episodes_for_show("http://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._%28season_2%29", "shield")
     
-  def update_episodes_for_show(self, url):
+  def update_episodes_for_show(self, url, showname):
     response = urllib2.urlopen(url)
-    data = response.readLines()
-    htmlJoin = "".join(data)
-    html = BeautifulSoup(htmlJoin)
+    data = response.read()
+    html = BeautifulSoup(data)
     episodeTable = html.find("span", id="Episodes").parent.find_next_sibling("table");
-    print "table: " + str(episodeTable);
+    dateSpans = episodeTable.find_all("span", attrs={"class": "published"})
+    for ds in dateSpans:
+      title = ds.parent.parent.find_previous_sibling("td", attrs={"class": "summary"}).contents[0]
+      title = str(title)
+      ep = Episode(show_name=showname, episode_name = title, episode_date = ds.string)
+      ep.save()
