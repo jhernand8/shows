@@ -18,6 +18,10 @@ class Command(BaseCommand):
       # handle current show
       url = show.wiki_url
       self.update_episodes_for_show(url)
+    self.update_episodes_for_show("http://en.wikipedia.org/wiki/NCIS_%28season_12%29");
+    print "\n\n\n agents of shield:\n\n\n";
+    self.update_episodes_for_show("http://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._%28season_2%29")
+    
   def update_episodes_for_show(self, url):
     response = urllib2.urlopen(url)
     data = response.readLines()
