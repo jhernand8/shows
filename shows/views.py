@@ -12,7 +12,7 @@ from django.utils.safestring import mark_safe
 from sets import Set
 from shows.models import Episode
 def home(request):
-  episodes = Episode.objects().all()
+  episodes = Episode.objects.all()
   episodes = sorted(episodes, key=lambda sn: sn.show_name)
   outStr = "Shows home page";
   for episode in episodes:
