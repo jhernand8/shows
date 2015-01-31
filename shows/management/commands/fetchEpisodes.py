@@ -7,6 +7,7 @@ from shows.models import Show
 from sets import Set
 from datetime import date
 from datetime import timedelta
+from bs4 import BeautifulSoup
 
 
 # Cron job that fetches episodes from wikipedia.
@@ -15,3 +16,12 @@ class Command(BaseCommand):
     shows = Show.objects.all();
     for show in shows:
       # handle current show
+      url = show.wiki_url
+      self.update_episodes_for_show(url)
+  def update_episodes_for_show(self, url):
+    response = urllib2.urlopen(url)
+    data = response.readLines()
+    htmlJoin = "".join(data)
+    html = BeautifulSoup(htmlJoin)
+    episodeTable = html.find("span", id="Episodes").parent.find_next_sibling("table");
+    print "table: " + str(episodeTable);
