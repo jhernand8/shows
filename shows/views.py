@@ -11,6 +11,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.safestring import mark_safe
 from sets import Set
 from shows.models import Episode
+from shows.models import Show
 def home(request):
   episodes = Episode.objects.all()
   episodes = sorted(episodes, key=lambda sn: sn.date)
@@ -18,6 +19,10 @@ def home(request):
   for episode in episodes:
     outStr += episode.show_name + ": " + str(episode.date) + "  " + episode.episode_name;
     outStr += "<br/>\n";
+
+  outStr += "<br/><br/><br/> data from wikipedia:";
+  for show in Show.objects.all():
+    outStr += show.wiki_url + "<br/>";
   return http.HttpResponse(outStr);
 
 
