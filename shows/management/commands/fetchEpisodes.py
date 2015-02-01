@@ -37,5 +37,5 @@ class Command(BaseCommand):
       epdate = datetime.strptime(datestr, '%Y-%m-%d').date()
       if (epdate < min_date) :
         continue
-      ep = Episode(show_name=showname, episode_name = title, date = ep.date)
+      ep = Episode(show_name=showname, episode_name = title, date = epdate)
       ep.save()
