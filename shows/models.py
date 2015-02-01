@@ -4,7 +4,7 @@ from django.db import models
 class Episode(models.Model):
   show_name = models.TextField()
   episode_name = models.TextField()
-  episode_date = models.TextField()
+  date = models.DateField()
 
 class Show(models.Model):
   show_name = models.TextField()

@@ -6,6 +6,7 @@ from shows.models import Episode
 from shows.models import Show
 from sets import Set
 from datetime import date
+from datetime import datetime
 from datetime import timedelta
 from bs4 import BeautifulSoup
 
@@ -28,8 +29,13 @@ class Command(BaseCommand):
     html = BeautifulSoup(data)
     episodeTable = html.find("span", id="Episodes").parent.find_next_sibling("table");
     dateSpans = episodeTable.find_all("span", attrs={"class": "published"})
+    min_date = date.now() - timedelta(days = 30)
     for ds in dateSpans:
       title = ds.parent.parent.find_previous_sibling("td", attrs={"class": "summary"}).contents[0]
       title = str(title)
-      ep = Episode(show_name=showname, episode_name = title, episode_date = ds.string)
+      datestr = ds.string
+      epdate = datetime.strptime(datestr, '%Y-%m-%d').date()
+      if (epdate < min_date) :
+        continue
+      ep = Episode(show_name=showname, episode_name = title, date = ep.date)
       ep.save()
