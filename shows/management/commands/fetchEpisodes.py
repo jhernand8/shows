@@ -14,14 +14,17 @@ from bs4 import BeautifulSoup
 # Cron job that fetches episodes from wikipedia.
 class Command(BaseCommand):
   def handle(self, *args, **options):
+    # first remove all episodes
+    allEps = Episode.objects.all()
+    for ep in allEps:
+      ep.delete()
+
+    # now add episodes
     shows = Show.objects.all();
     for show in shows:
       # handle current show
       url = show.wiki_url
       self.update_episodes_for_show(url, show.show_name)
-    self.update_episodes_for_show("http://en.wikipedia.org/wiki/NCIS_%28season_12%29", "ncis");
-    print "\n\n\n agents of shield:\n\n\n";
-    self.update_episodes_for_show("http://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._%28season_2%29", "shield")
     
   def update_episodes_for_show(self, url, showname):
     response = urllib2.urlopen(url)
