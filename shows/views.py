@@ -13,8 +13,8 @@ from sets import Set
 from shows.models import Episode
 def home(request):
   episodes = Episode.objects.all()
-  episodes = sorted(episodes, key=lambda sn: sn.show_name)
-  outStr = "Shows home page";
+  episodes = sorted(episodes, key=lambda sn: sn.date)
+  outStr = "Shows home page<br/>\n";
   for episode in episodes:
     outStr += episode.show_name + ": " + str(episode.date) + "  " + episode.episode_name;
     outStr += "<br/>\n";
