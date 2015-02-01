@@ -16,7 +16,7 @@ def home(request):
   episodes = sorted(episodes, key=lambda sn: sn.show_name)
   outStr = "Shows home page";
   for episode in episodes:
-    outStr += episode.show_name + ": " + episode.episode_date + "  " + episode.episode_name;
+    outStr += episode.show_name + ": " + str(episode.date) + "  " + episode.episode_name;
     outStr += "<br/>\n";
   return http.HttpResponse(outStr);
 
