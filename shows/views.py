@@ -17,9 +17,17 @@ def home(request):
   episodes = sorted(episodes, key=lambda sn: sn.date)
   outStr = "Shows home page<br/>\n";
   for episode in episodes:
+    if (episode.date >= date.today()):
+      break;
     outStr += episode.show_name + ": " + str(episode.date) + "  " + episode.episode_name;
     outStr += "<br/>\n";
 
+  outStr += "<br/><br/><br/>Upcoming<br/><br/>";
+  for episode in episodes:
+    if (episode.date < date.today()):
+      continue;
+    outStr += episode.show_name + ": <b>" + str(episode.date) + "</b>  " + episode.episode_name;
+    outStr += "<br/>\n";
   outStr += "<br/><br/><br/> data from wikipedia:";
   for show in Show.objects.all():
     outStr += show.wiki_url + "<br/>";
