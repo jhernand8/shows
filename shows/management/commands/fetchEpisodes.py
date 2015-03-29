@@ -33,9 +33,11 @@ class Command(BaseCommand):
     episodeTable = html.find("span", id="Episodes").parent.find_next_sibling("table");
     dateSpans = episodeTable.find_all("span", attrs={"class": "published"})
     min_date = date.today() - timedelta(days = 30)
+    count = 0;
     for ds in dateSpans:
-      title = ds.parent.parent.find_previous_sibling("td", attrs={"class": "summary"}).contents[0]
-      title = str(title)
+      count = count + 1
+      #title = ds.parent.parent.find_previous_sibling("td", attrs={"class": "summary"}).contents[0]
+      title = "Episode " + str(count)
       datestr = ds.string
       epdate = datetime.strptime(datestr, '%Y-%m-%d').date()
       if (epdate < min_date) :
