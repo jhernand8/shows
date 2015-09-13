@@ -24,8 +24,10 @@ class Command(BaseCommand):
     for show in shows:
       # handle current show
       url = show.wiki_url
-      self.update_episodes_for_show(url, show.show_name)
- 
+      try:
+        self.update_episodes_for_show(url, show.show_name)
+      except:
+        continue;
     # check for new seasons
     self.check_new_seasons();
       
