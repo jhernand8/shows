@@ -36,9 +36,9 @@ class Command(BaseCommand):
       resp = urllib2.urlopen(show.wiki_url)
       html = BeautifulSoup(resp.read())
       try:
-        nextSeason = html.findAll(text="Next").[0].parent.find_next_sibling("a").get('href');
+        nextSeason = html.findAll(text="Next")[0].parent.find_next_sibling("a").get('href');
         nsurl = 'http://en.wikipedia.org/' + nextSeason;
-        name = html.findAll(text="Next").[0].parent.find_next_sibling("a").contents[0];
+        name = html.findAll(text="Next")[0].parent.find_next_sibling("a").contents[0];
         season_exists = False
         for s in shows:
           if s.wiki_url == nsurl:
