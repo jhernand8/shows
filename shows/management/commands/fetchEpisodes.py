@@ -26,8 +26,8 @@ class Command(BaseCommand):
       url = show.wiki_url
       self.update_episodes_for_show(url, show.show_name)
  
-   # check for new seasons
-   self.check_new_seasons();
+    # check for new seasons
+    self.check_new_seasons();
       
   # Checks for any new seasons of the show and if so adds them to the databae  
   def check_new_seasons(self):
