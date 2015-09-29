@@ -53,6 +53,7 @@ class Command(BaseCommand):
         continue;
  
   def update_episodes_for_show(self, url, showname):
+    print "updating episodes for: " + showname + " " + url + "\n"
     response = urllib2.urlopen(url)
     data = response.read()
     html = BeautifulSoup(data)
@@ -66,7 +67,7 @@ class Command(BaseCommand):
       title = "Episode " + str(count)
       datestr = ds.string
       epdate = datetime.strptime(datestr, '%Y-%m-%d').date()
-      if (epdate < min_date) :
+      if (epdate > min_date) :
         continue
       ep = Episode(show_name=showname, episode_name = title, date = epdate)
       ep.save()
