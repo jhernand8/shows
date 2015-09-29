@@ -67,6 +67,7 @@ class Command(BaseCommand):
       title = "Episode " + str(count)
       datestr = ds.string
       epdate = datetime.strptime(datestr, '%Y-%m-%d').date()
+      print "   " + title + str(epdate) + "  " + str(epdate > min_date) + "  " + str(min_date) + "\n"
       if (epdate > min_date) :
         continue
       ep = Episode(show_name=showname, episode_name = title, date = epdate)
