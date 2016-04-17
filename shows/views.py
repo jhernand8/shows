@@ -5,6 +5,7 @@ import json
 import sys
 from bs4 import BeautifulSoup
 from datetime import date
+from datetime import timedelta
 import json
 from json import JSONEncoder
 from django.core.serializers.json import DjangoJSONEncoder
@@ -17,14 +18,23 @@ def home(request):
   episodes = sorted(episodes, key=lambda sn: sn.date)
   outStr = "Shows home page<br/>\n";
   for episode in episodes:
-    if (episode.date >= date.today()):
+    if (episode.date >= (date.today() + timedelta(days = -7)):
       break;
     outStr += episode.show_name + ": " + str(episode.date) + "  " + episode.episode_name;
     outStr += "<br/>\n";
 
-  outStr += "<br/><br/><br/>Upcoming<br/><br/>";
+  outStr += "<br/><br/><br/>Past and Upcoming Week<br/><br/>";
   for episode in episodes:
-    if (episode.date < date.today()):
+    if (episode.date > (date.today() + timedelta(days = 7)):
+      break;
+    if (episode.date < (date.today() + timedelta(days = -7)):
+      continue;
+    outStr += episode.show_name + ": <b>" + str(episode.date) + "</b>  " + episode.episode_name;
+    outStr += "<br/>\n";
+  
+  outStr += "<br/><br/>Upcoming<br/><br/>";
+  for episode in episodes:
+    if (episode.date < (date.today() + timedelta(days = 7)):
       continue;
     outStr += episode.show_name + ": <b>" + str(episode.date) + "</b>  " + episode.episode_name;
     outStr += "<br/>\n";
