@@ -20,23 +20,23 @@ def home(request):
   outStr += "<style> span.show { display: inline-block; width: 210px; } </style> ";
   nameSpan = "<span class='show'>";
   for episode in episodes:
-    if (episode.date >= (date.today() + timedelta(days = -7)):
+    if (episode.date >= (date.today() + timedelta(days = -7))):
       break;
     outStr += nameSpan + episode.show_name + "</span> " + str(episode.date) + "  " + episode.episode_name;
     outStr += "<br/>\n";
 
   outStr += "<br/><br/><br/>Past and Upcoming Week<br/><br/>";
   for episode in episodes:
-    if (episode.date > (date.today() + timedelta(days = 7)):
+    if (episode.date > (date.today() + timedelta(days = 7))):
       break;
-    if (episode.date < (date.today() + timedelta(days = -7)):
+    if (episode.date < (date.today() + timedelta(days = -7))):
       continue;
     outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "</b>  " + episode.episode_name;
     outStr += "<br/>\n";
   
   outStr += "<br/><br/>Upcoming<br/><br/>";
   for episode in episodes:
-    if (episode.date < (date.today() + timedelta(days = 7)):
+    if (episode.date < (date.today() + timedelta(days = 7))):
       continue;
     outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "</b>  " + episode.episode_name;
     outStr += "<br/>\n";
