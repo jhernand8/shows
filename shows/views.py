@@ -16,11 +16,13 @@ from shows.models import Show
 def home(request):
   episodes = Episode.objects.all()
   episodes = sorted(episodes, key=lambda sn: sn.date)
-  outStr = "Shows home page<br/>\n";
+  outStr = "<b>Shows home page</b><br/>\n";
+  outStr += "<style> span.show { display: inline-block; width: 210px; } </style> ";
+  nameSpan = "<span class='show'>";
   for episode in episodes:
     if (episode.date >= (date.today() + timedelta(days = -7)):
       break;
-    outStr += episode.show_name + ": " + str(episode.date) + "  " + episode.episode_name;
+    outStr += nameSpan + episode.show_name + "</span> " + str(episode.date) + "  " + episode.episode_name;
     outStr += "<br/>\n";
 
   outStr += "<br/><br/><br/>Past and Upcoming Week<br/><br/>";
@@ -29,14 +31,14 @@ def home(request):
       break;
     if (episode.date < (date.today() + timedelta(days = -7)):
       continue;
-    outStr += episode.show_name + ": <b>" + str(episode.date) + "</b>  " + episode.episode_name;
+    outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "</b>  " + episode.episode_name;
     outStr += "<br/>\n";
   
   outStr += "<br/><br/>Upcoming<br/><br/>";
   for episode in episodes:
     if (episode.date < (date.today() + timedelta(days = 7)):
       continue;
-    outStr += episode.show_name + ": <b>" + str(episode.date) + "</b>  " + episode.episode_name;
+    outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "</b>  " + episode.episode_name;
     outStr += "<br/>\n";
   outStr += "<br/><br/><br/> data from wikipedia:";
   for show in Show.objects.all():
