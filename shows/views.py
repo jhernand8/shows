@@ -41,8 +41,13 @@ def home(request):
     outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "</b>  " + episode.episode_name;
     outStr += "<br/>\n";
   outStr += "<br/><br/><br/> data from wikipedia:";
+
+  links = [];
   for show in Show.objects.all():
-    outStr += show.wiki_url + "<br/>";
+    links.append(show.wiki_url);
+  links.sort();
+  for link in links:
+    outStr += "<a href=\"" + link + "\">" + link + "</a><br/>";
   return http.HttpResponse(outStr);
 
 
