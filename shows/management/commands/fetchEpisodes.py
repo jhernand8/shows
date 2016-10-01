@@ -56,7 +56,7 @@ class Command(BaseCommand):
           dateSpans = episodeTable.find_all("span", attrs={"class": "published"})
           if dateSpans and len(dateSpans) > 0:
             episodeDate = datetime.strptime(dateSpans[0].string, '%Y-%m-%d').date()
-            if episodeDate < (date.today() - timedelta(days = 700):
+            if episodeDate < (date.today() - timedelta(days = 700)):
               show.delete();
           continue
         newSeason = Show(show_name = (show.show_name + name), wiki_url = nsurl);
