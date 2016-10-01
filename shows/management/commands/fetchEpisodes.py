@@ -31,7 +31,8 @@ class Command(BaseCommand):
     # check for new seasons
     self.check_new_seasons();
       
-  # Checks for any new seasons of the show and if so adds them to the databae  
+  # Checks for any new seasons of the show and if so adds them to the database
+  # and removes much older seasons
   def check_new_seasons(self):
     shows = Show.objects.all()
     for show in shows:
@@ -39,13 +40,24 @@ class Command(BaseCommand):
       html = BeautifulSoup(resp.read())
       try:
         nextSeason = html.findAll(text="Next")[0].parent.find_next_sibling("a").get('href');
-        nsurl = 'http://en.wikipedia.org/' + nextSeason;
+        nsurl = 'http://en.wikipedia.org'
+        if nextSeason.find("/") == 0:
+          nsurl = nsurl + nextSeason;
+        else:
+          nsurl = nsurl + '/' + nextSeason;
         name = html.findAll(text="Next")[0].parent.find_next_sibling("a").contents[0];
         season_exists = False
         for s in shows:
           if s.wiki_url == nsurl:
             season_exists = True
         if season_exists:
+          # see if this season is old and can be removed
+          episodeTable = html.find("span", id="Episodes").parent.find_next_sibling("table");
+          dateSpans = episodeTable.find_all("span", attrs={"class": "published"})
+          if dateSpans and len(dateSpans) > 0:
+            episodeDate = datetime.strptime(dateSpans[0].string, '%Y-%m-%d').date()
+            if episodeDate < (date.today() - timedelta(days = 700):
+              show.delete();
           continue
         newSeason = Show(show_name = (show.show_name + name), wiki_url = nsurl);
         newSeason.save()
