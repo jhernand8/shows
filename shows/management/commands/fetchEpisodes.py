@@ -59,11 +59,24 @@ class Command(BaseCommand):
             if episodeDate < (date.today() - timedelta(days = 700)):
               show.delete();
           continue
+        seasonName = self.form_show_season_name(show.show_name, name);
         newSeason = Show(show_name = (show.show_name + name), wiki_url = nsurl);
         newSeason.save()
       except:
         continue;
  
+  # Helper to form the new show + season name based on the current name and the 
+  # name of the new season.
+  def form_show_season_name(self, currName, seasonName):
+    seasonIndex = currName.find("Season");
+    rootName = currName;
+    if seasonIndex > 0:
+      rootName = currName[0:seasonIndex];
+    else:
+      if currName.rfind("S") > len(currName) - 4:
+        rootName = currName[0:currName.rfind("S")]
+    return rootName + " " + seasonName;
+
   def update_episodes_for_show(self, url, showname):
     print "updating episodes for: " + showname + " " + url + "\n"
     response = urllib2.urlopen(url)
