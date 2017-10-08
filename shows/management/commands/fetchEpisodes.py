@@ -60,7 +60,7 @@ class Command(BaseCommand):
               show.delete();
           continue
         seasonName = self.form_show_season_name(show.show_name, name);
-        newSeason = Show(show_name = (show.show_name + name), wiki_url = nsurl);
+        newSeason = Show(show_name = seasonName, wiki_url = nsurl);
         newSeason.save()
       except:
         continue;
