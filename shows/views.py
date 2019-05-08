@@ -12,6 +12,7 @@ from django.utils.safestring import mark_safe
 from sets import Set
 from shows.models import Episode
 from shows.models import Show
+
 def home(request):
   episodes = Episode.objects.all()
   episodes = sorted(episodes, key=lambda sn: sn.date)
