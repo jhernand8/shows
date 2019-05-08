@@ -1,6 +1,5 @@
 from django import http
 from django.template import RequestContext, loader
-import urllib2
 import json
 import sys
 from bs4 import BeautifulSoup

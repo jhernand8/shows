@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.serializers.json import DjangoJSONEncoder
-import urllib2
+from urllib.request import urlopen
 import json
 from shows.models import Episode
 from shows.models import Show
@@ -36,7 +36,7 @@ class Command(BaseCommand):
   def check_new_seasons(self):
     shows = Show.objects.all()
     for show in shows:
-      resp = urllib2.urlopen(show.wiki_url)
+      resp = urlopen(show.wiki_url)
       html = BeautifulSoup(resp.read())
       try:
         nextSeason = html.findAll(text="Next")[0].parent.find_next_sibling("a").get('href');
@@ -78,8 +78,8 @@ class Command(BaseCommand):
     return rootName + " " + seasonName;
 
   def update_episodes_for_show(self, url, showname):
-    print "updating episodes for: " + showname + " " + url + "\n"
-    response = urllib2.urlopen(url)
+    print("updating episodes for: " + showname + " " + url + "\n")
+    response = urlopen(url)
     data = response.read()
     html = BeautifulSoup(data)
     episodeTable = html.find("span", id="Episodes").parent.find_next_sibling("table");
@@ -92,7 +92,6 @@ class Command(BaseCommand):
       title = "Episode " + str(count)
       datestr = ds.string
       epdate = datetime.strptime(datestr, '%Y-%m-%d').date()
-      # print "   " + title + str(epdate) + "  " + str(epdate > min_date) + "  " + str(min_date) + "\n"
       if (epdate < min_date) :
         continue
       ep = Episode(show_name=showname, episode_name = title, date = epdate)
