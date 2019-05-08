@@ -9,7 +9,6 @@ import json
 from json import JSONEncoder
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.safestring import mark_safe
-from sets import Set
 from shows.models import Episode
 from shows.models import Show
 
