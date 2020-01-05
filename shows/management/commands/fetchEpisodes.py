@@ -4,7 +4,6 @@ from urllib.request import urlopen
 import json
 from shows.models import Episode
 from shows.models import Show
-from sets import Set
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
