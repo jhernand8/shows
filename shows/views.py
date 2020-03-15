@@ -30,7 +30,7 @@ def home(request):
       break;
     if (episode.date < (date.today() + timedelta(days = -7))):
       continue;
-    outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "</b>  " + episode.episode_name;
+    outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "(" + form_weekday_str(date.weekday()) + ")</b>  " + episode.episode_name;
     outStr += "<br/>\n";
   
   outStr += "<br/><br/>Upcoming<br/><br/>";
@@ -49,5 +49,22 @@ def home(request):
     outStr += "<a href=\"" + link + "\">" + link + "</a><br/>";
   return http.HttpResponse(outStr);
 
+# Returns day string for day of week.
+def form_weekday_str(weekday):
+  if weekday == 0:
+    return "Sunday"
+  if weekday == 1:
+    return "Monday"
+  if weekday == 2:
+    return "Tuesday"
+  if weekday == 3:
+    return "Wednesday"
+  if weekday == 4:
+    return "Thursday"
+  if weekday == 5:
+    return "Friday"
+  if weekday == 6:
+    return "Saturday"
+  return ""
 
 
