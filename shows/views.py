@@ -30,7 +30,7 @@ def home(request):
       break;
     if (episode.date < (date.today() + timedelta(days = -7))):
       continue;
-    outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "(" + form_weekday_str(date.weekday()) + ")</b>  " + episode.episode_name;
+    outStr += nameSpan + episode.show_name + "</span> <b>" + str(episode.date) + "(" + form_weekday_str(episode.date.weekday()) + ")</b>  " + episode.episode_name;
     outStr += "<br/>\n";
   
   outStr += "<br/><br/>Upcoming<br/><br/>";
